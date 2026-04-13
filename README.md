@@ -20,22 +20,4 @@ SE DUYÊN 4.0
    Quản lý dữ liệu: thêm, xóa, sửa, tìm kiếm, sắp xếp
    Lưu và tải dữ liệu bằng file
    Chia chương trình thành nhiều module
-5. Cấu trúc
-   SEDUYEN/
-├── src/          # Mã nguồn chính
-│   ├── main.c
-│   ├── list.c
-│   ├── file.c
-│   ├── se_duyen.c
-│
-├── include/      # Các file header
-│   ├── list.h
-│   ├── file.h
-│   ├── se_duyen.h
-│
-├── data/         # Dữ liệu đầu vào/đầu ra
-│   ├── people.txt
-│   ├── result.txt
-│
-├── README.md
    
