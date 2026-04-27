@@ -3,19 +3,36 @@
 
 #include "list.h"
 
-#define MAX_PAIR 500
+#define DATA_FILE    "data/data.txt"
+#define RESULT_FILE  "data/results.txt"
+#define PEOPLE_FILE  "data/people.txt"
 
-typedef struct {
-int id1;
-int id2;
-char name1 [MAX_NAME];
-char name2[MAX_NAME];
-float score;
-} Pair;
+/* File I/O - danh sach nguoi dung */
+void saveToFile(Node *head, const char *filename);
+void loadFromFile(Node **head, const char *filename);
 
-float calcScore (Node *a, Node *b);
-void addPair(Node *head, int index1, int index2,
-Pair pairs, int *count);
-void sortPairs Desc(Pair pairs[], int count);
+/* File I/O - danh sach ket qua */
+void saveResultToFile(ResultNode *head, const char *filename);
+void loadResultFromFile(ResultNode **head, const char *filename);
+
+/* Menu & UI */
+void printMenu(void);
+void handleAdd(Node **head);
+void handleDelete(Node **head);
+void handleUpdate(Node **head);
+void handleSearch(Node *head);
+void handleSort(Node **head);
+void handleViewResults(ResultNode *head);
+void handleCleanData(ResultNode **resultHead);
+
+/* Than so hoc */
+int  lifePathNumber(const char *birth);
+int  compatibility(int n1, int n2);
+void handleCompatibility(Node *head, ResultNode **resultHead);
+
+/* Input helpers */
+int  inputId(const char *prompt);
+void inputStr(const char *prompt, char *buf, int maxLen);
+int  isValidDate(const char *date);
 
 #endif
