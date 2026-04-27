@@ -5,12 +5,14 @@
 
 #define MAX_PAIR 500
 
-typedef struct {
-int id1;
-int id2;
-char name1 [MAX_NAME];
-char name2[MAX_NAME];
-float score;
+//luu thong tin cap doi sau khi so sanh
+typedef struct
+{
+    int id1;
+    int id2;
+    char name1 [MAX_NAME];
+    char name2[MAX_NAME];
+    float score;
 } Pair;
 
 float calcScore (Node *a, Node *b);
