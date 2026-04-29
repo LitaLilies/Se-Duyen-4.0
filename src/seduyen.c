@@ -32,12 +32,14 @@ int lifePathNumber(const char *birth)
 } 
 
 //ham kiem tra muc do hop nhau
-int compatibility(int n1, int n2)
+int compatibility(int n1, int n2)//nhan so chu dao cua 2 nguoi
 { 
     if (n1 < 1 || n1 > 9 || n2 < 1 || n2 > 9)
     {
         return 0;
     }
-    return COMPAT[n1-1][n2-1]; 
-
+    return COMPAT[n1-1][n2-1];//tra ma tan bang do hop nhau + tru 1 vi mang bat dau la 0
+//compatibility(6, 1)
+// → tra vào COMPAT[5][0]
+// → ví dụ trả về 85 (điểm tương hợp 85%)
 } 
