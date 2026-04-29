@@ -43,3 +43,68 @@ int compatibility(int n1, int n2)//nhan so chu dao cua 2 nguoi
 // → tra vào COMPAT[5][0]
 // → ví dụ trả về 85 (điểm tương hợp 85%)
 } 
+// ...existing code...
+
+/* saveToFile
+   Luu danh sach nguoi vao file
+*/
+void saveToFile(Node *head, const char *filename)
+{
+    FILE *f = fopen(filename, "w");
+
+    if (f == NULL)
+    {
+        printf("Khong mo duoc file!\n");
+        return;
+    }
+
+    Node *cur = head;
+
+    while (cur != NULL)
+    {
+        fprintf(f, "%d|%s|%s\n",
+                cur->id,
+                cur->name,
+                cur->birth);
+
+        cur = cur->next;
+    }
+
+    fclose(f);
+
+    printf("Da luu file thanh cong!\n");
+}
+
+/* loadFromFile
+   Doc danh sach nguoi tu file
+*/
+void loadFromFile(Node **head, const char *filename)
+{
+    FILE *f = fopen(filename, "r");
+
+    if (f == NULL)
+    {
+        printf("Khong tim thay file!\n");
+        return;
+    }
+
+    int id;
+    char name[MAX_NAME];
+    char birth[11];
+
+    while (fscanf(f,
+           "%d|%49[^|]|%10[^\n]\n",
+           &id,
+           name,
+           birth) == 3)
+    {
+        Node *p = createNode(id, name, birth);
+
+        if (p != NULL)
+            addLast(head, p);
+    }
+
+    fclose(f);
+
+    printf("Da tai du lieu tu file!\n");
+}
