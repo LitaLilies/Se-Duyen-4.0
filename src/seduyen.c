@@ -30,3 +30,14 @@ int lifePathNumber(const char *birth)
     } 
     return sum == 0 ? 9 : sum; 
 } 
+
+//ham kiem tra muc do hop nhau
+int compatibility(int n1, int n2)
+{ 
+    if (n1 < 1 || n1 > 9 || n2 < 1 || n2 > 9)
+    {
+        return 0;
+    }
+    return COMPAT[n1-1][n2-1]; 
+
+} 
