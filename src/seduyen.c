@@ -223,3 +223,46 @@ void handleCompatibility(Node *head, ResultNode **resultHead) {
     } 
 } 
 
+ 
+
+void handleViewResults(ResultNode *head) 
+{ 
+    printf("\n--- DANH SACH KET QUA DA XET ---\n"); 
+    traverseResultList(head); 
+} 
+
+ 
+/* 
+ * Lam sach: xoa trang data.txt, xoa trang results.txt, 
+ * va xoa tat ca nguoi da them (chi giu lai people.txt trong RAM). 
+ * Hoi xac nhan truoc khi thuc hien. 
+ */ 
+
+void handleCleanData(ResultNode **resultHead) 
+{ 
+    printf("\n--- XOA DANH SACH KET QUA ---\n"); 
+    printf("  Ban co chac muon xoa toan bo ket qua da xet khong? (y/n): "); 
+    char buf[8]; 
+
+    if (!fgets(buf, sizeof(buf), stdin)) 
+    {
+        return;
+    } 
+    if (buf[0] != 'y' && buf[0] != 'Y') 
+    { 
+        printf("  Da huy.\n"); 
+        return; 
+    } 
+
+    /* Xoa trang results.txt */ 
+    FILE *f = fopen(RESULT_FILE, "w"); 
+    if (f) 
+    {
+        fclose(f); 
+    }
+
+    /* Xoa danh sach ket qua trong RAM */ 
+    freeResultList(resultHead); 
+    printf("  Da xoa toan bo ket qua!\n"); 
+
+} 
