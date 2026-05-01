@@ -266,3 +266,107 @@ void handleCleanData(ResultNode **resultHead)
     printf("  Da xoa toan bo ket qua!\n"); 
 
 } 
+
+//Menu & Handlers
+
+void printMenu(void) { 
+    printf("\n============ SE DUYEN 4.0 ============\n"); 
+    printf("  1. Hien thi danh sach\n"); 
+    printf("  2. Them nguoi dung\n"); 
+    printf("  3. Tim kiem theo ID\n"); 
+    printf("  4. Cap nhat thong tin\n"); 
+    printf("  5. Xoa nguoi dung\n"); 
+    printf("  6. So chu dao & Top 3 tuong hop\n"); 
+    printf("  7. Xem danh sach ket qua\n"); 
+    printf("  8. Xoa danh sach ket qua\n"); 
+    printf("  0. Thoat\n"); 
+
+    printf("======================================\n"); 
+    printf("  Chon: "); 
+} 
+
+ 
+
+void handleAdd(Node **head) 
+{ 
+    printf("\n--- THEM NGUOI DUNG ---\n"); 
+ 
+    /* Tu dong gan ID tiep theo, khong can nguoi dung nhap */ 
+    int id = maxId(*head) + 1; 
+    printf("  ID tu dong: %d\n", id); 
+    char name[MAX_NAME], birth[11]; 
+    inputStr("  Ho ten: ", name, MAX_NAME); 
+
+    if (strlen(name) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; } 
+ 
+    while (1) 
+    { 
+        inputStr("  Ngay sinh (DD/MM/YYYY, Enter de huy): ", birth, 11); 
+        if (strlen(birth) == 0) { printf("  Da huy them nguoi dung.\n"); return; } 
+        if (isValidDate(birth)) break; 
+
+        printf("  [Loi] Dinh dang ngay khong hop le (VD: 01/01/2000)!\n"); 
+
+    } 
+
+
+    Node *p = createNode(id, name, birth); 
+    if (!p) 
+    { 
+        printf("  [Loi] Khong du bo nho!\n"); 
+        return; 
+    } 
+    addLast(head, p); 
+
+    printf("  Da them thanh cong!\n"); 
+
+} 
+
+void handleDelete(Node **head) 
+{ 
+    printf("\n--- XOA NGUOI DUNG ---\n"); 
+    int id = inputId("  Nhap ID can xoa: "); 
+    if (!searchNode(*head, id))
+    { 
+        printf("  [Loi] Khong tim thay ID %d!\n", id); 
+        return; 
+    } 
+
+    deleteNode(head, id); 
+    reindexIds(*head); 
+
+    printf("  Da xoa ID %d. Danh sach da duoc cap nhat lai so thu tu.\n", id); 
+
+} 
+
+void handleUpdate(Node **head) {
+    printf("\n--- CAP NHAT THONG TIN ---\n");
+    int id = inputId("  Nhap ID can cap nhat: ");
+    Node *p = searchNode(*head, id);
+    if (!p) { printf("  [Loi] Khong tim thay ID %d!\n", id); return; }
+
+    printf("  Ten hien tai: %s\n", p->name);
+    char name[MAX_NAME], birth[11];
+    inputStr("  Ho ten moi: ", name, MAX_NAME);
+    if (strlen(name) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; }
+
+    printf("  Ngay sinh hien tai: %s\n", p->birth);
+    while (1) {
+        inputStr("  Ngay sinh moi (DD/MM/YYYY, Enter de huy): ", birth, 11);
+        if (strlen(birth) == 0) { printf("  Da huy cap nhat.\n"); return; }
+        if (isValidDate(birth)) break;
+        printf("  [Loi] Dinh dang ngay khong hop le!\n");
+    }
+
+    updateNode(p, name, birth);
+    printf("  Cap nhat thanh cong!\n");
+}
+
+void handleSearch(Node *head) {
+    printf("\n--- TIM KIEM ---\n");
+    int id = inputId("  Nhap ID can tim: ");
+    Node *p = searchNode(head, id);
+    if (!p) { printf("  Khong tim thay ID %d.\n", id); return; }
+    printf("  %-5s %-25s %-12s\n", "ID", "Ho ten", "Ngay sinh");
+    printf("  %-5d %-25s %-12s\n", p->id, p->name, p->birth);
+}
