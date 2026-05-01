@@ -121,3 +121,29 @@ int maxId(Node *head)
             max = cur->id;
     return max;
 }
+
+
+ResultNode* createResultNode(const char *name, const char *birth,
+                             int soChudao,
+                             const char *topName, int topPct) {
+
+    if (!name || !birth || !topName) return NULL;
+
+    ResultNode *p = malloc(sizeof(ResultNode));
+    if (!p) return NULL;
+
+    strncpy(p->name, name, MAX_NAME - 1);
+    p->name[MAX_NAME - 1] = '\0';
+
+    strncpy(p->birth, birth, 10);
+    p->birth[10] = '\0';
+
+    strncpy(p->topName, topName, MAX_NAME - 1);
+    p->topName[MAX_NAME - 1] = '\0';
+
+    p->soChudao = soChudao;
+    p->topPct   = topPct;
+    p->next     = NULL;
+
+    return p;
+}
