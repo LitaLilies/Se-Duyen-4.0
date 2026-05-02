@@ -43,11 +43,9 @@ void loadFromFile(Node **head, const char *filename)
         printf("Khong tim thay file!\n");
         return;
     }
-
     int id;
     char name[MAX_NAME];
     char birth[11];
-
     while (fscanf(f,
            "%d|%49[^|]|%10[^\n]\n",
            &id,
@@ -55,16 +53,147 @@ void loadFromFile(Node **head, const char *filename)
            birth) == 3)
     {
         Node *p = createNode(id, name, birth);
-
         if (p != NULL)
             addLast(head, p);
     }
-
     fclose(f);
-
     printf("Da tai du lieu tu file!\n");
 }
 
+// ...existing code...
+/* saveResultToFile
+   Luu danh sach ket qua vao file
+*/
+void saveResultToFile(ResultNode *head, const char *filename)
+{
+    FILE *f = fopen(filename, "w");
+
+    if (f == NULL)
+    {
+        printf("Khong mo duoc file ket qua!\n");
+        return;
+    }
+    ResultNode *cur = head;
+    while (cur != NULL)
+    {
+        fprintf(f, "%s|%s|%d|%s|%d\n",
+                cur->name,
+                cur->birth,
+                cur->soChudao,
+                cur->topName,
+                cur->topPct);
+        cur = cur->next;
+    }
+    fclose(f);
+    printf("Da luu ket qua!\n");
+}
+/* loadResultFromFile
+   Doc danh sach ket qua tu file
+*/
+void loadResultFromFile(ResultNode **head, const char *filename)
+{
+    FILE *f = fopen(filename, "r");
+
+    if (f == NULL)
+    {
+        printf("Khong tim thay file ket qua!\n");
+        return;
+    }
+
+    char name[MAX_NAME];
+    char birth[11];
+    int soChudao;
+    char topName[MAX_NAME];
+    int topPct;
+
+    while (fscanf(f,
+           "%49[^|]|%10[^|]|%d|%49[^|]|%d\n",
+           name,
+           birth,
+           &soChudao,
+           topName,
+           &topPct) == 5)
+    {
+        ResultNode *p = createResultNode(
+                            name,
+                            birth,
+                            soChudao,
+                            topName,
+                            topPct);
+
+        if (p != NULL)
+            addLastResult(head, p);
+    }
+
+    fclose(f);
+    printf("Da tai ket qua tu file!\n");
+}
+
+
+/* ================= INPUT ================= */
+
+/* Xoa bo dem ban phim */
+void flushStdin(void)
+{
+    int c;
+
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+/* Nhap ID */
+int inputId(const char *prompt)
+{
+    int id;
+
+    printf("%s", prompt);
+    scanf("%d", &id);
+    flushStdin();
+
+    return id;
+}
+
+/* Nhap chuoi */
+void inputStr(const char *prompt, char *buf, int maxLen)
+{
+    printf("%s", prompt);
+    fgets(buf, maxLen, stdin);
+
+    buf[strcspn(buf, "\n")] = '\0';
+}
+
+/* Kiem tra ngay hop le DD/MM/YYYY */
+int isValidDate(const char *date)
+{
+    if (strlen(date) != 10)
+        return 0;
+
+    if (date[2] != '/' || date[5] != '/')
+        return 0;
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (i != 2 && i != 5 && !isdigit(date[i]))
+            return 0;
+    }
+
+    return 1;
+}
+
+/* ================= DATA XU LY ================= */
+
+/* Danh lai ID tu 1 -> n */
+void reindexIds(Node *head)
+{
+    int id = 1;
+
+    Node *cur = head;
+
+    while (cur != NULL)
+    {
+        cur->id = id++;
+        cur = cur->next;
+    }
+}
 //LOGIC:
 
 int lifePathNumber(const char *birth)
