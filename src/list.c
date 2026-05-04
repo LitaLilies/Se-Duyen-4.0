@@ -6,8 +6,7 @@
 Node *createNode(int id, const char *name, const char *birth)
 {
     Node *p = (Node *)malloc(sizeof(Node));
-    if (!p)
-        return NULL;
+    if (!p) return NULL;
     p->id = id;
     strncpy(p->name, name, MAX_NAME - 1);
     p->name[MAX_NAME - 1] = '\0';
@@ -25,8 +24,7 @@ void addLast(Node **head, Node *p)
         return;
     }
     Node *cur = *head;
-    while (cur->next)
-        cur = cur->next;
+    while (cur->next) cur = cur->next;
     cur->next = p;
 }
 
@@ -46,8 +44,7 @@ void traverseList(Node *head)
 Node *searchNode(Node *head, int id)
 {
     for (Node *cur = head; cur; cur = cur->next)
-        if (cur->id == id)
-            return cur;
+        if (cur->id == id) return cur;
     return NULL;
 }
 
@@ -55,15 +52,13 @@ Node *getNodeAt(Node *head, int index)
 {
     int i = 0;
     for (Node *cur = head; cur; cur = cur->next, i++)
-        if (i == index)
-            return cur;
+        if (i == index) return cur;
     return NULL;
 }
 
 void updateNode(Node *p, const char *name, const char *birth)
 {
-    if (!p)
-        return;
+    if (!p) return;
     strncpy(p->name, name, MAX_NAME - 1);
     p->name[MAX_NAME - 1] = '\0';
     strncpy(p->birth, birth, 10);
@@ -72,8 +67,7 @@ void updateNode(Node *p, const char *name, const char *birth)
 
 void deleteNode(Node **head, int id)
 {
-    if (!*head)
-        return;
+    if (!*head) return;
     if ((*head)->id == id)
     {
         Node *tmp = *head;
@@ -108,8 +102,7 @@ void freeList(Node **head)
 int listLength(Node *head)
 {
     int count = 0;
-    for (Node *cur = head; cur; cur = cur->next)
-        count++;
+    for (Node *cur = head; cur; cur = cur->next) count++;
     return count;
 }
 
@@ -132,8 +125,7 @@ int maxId(Node *head)
 ResultNode *createResultNode(const char *name, const char *birth, int soChudao, const char *topName, int topPct)
 {
     ResultNode *p = (ResultNode *)malloc(sizeof(ResultNode));
-    if (!p)
-        return NULL;
+    if (!p) return NULL;
     strncpy(p->name, name, MAX_NAME - 1);
     p->name[MAX_NAME - 1] = '\0';
     strncpy(p->birth, birth, 10);
@@ -154,8 +146,7 @@ void addLastResult(ResultNode **head, ResultNode *p)
         return;
     }
     ResultNode *cur = *head;
-    while (cur->next)
-        cur = cur->next;
+    while (cur->next) cur = cur->next;
     cur->next = p;
 }
 void traverseResultList(ResultNode *head)
