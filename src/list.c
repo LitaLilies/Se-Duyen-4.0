@@ -158,3 +158,27 @@ void addLastResult(ResultNode **head, ResultNode *p)
         cur = cur->next;
     cur->next = p;
 }
+void traverseResultList(ResultNode *head)
+{
+    if (!head)
+    {
+        printf("  (Chua co ket qua nao)\n");
+        return;
+    }
+    printf("  %-25s %-12s %-10s %-25s %-8s\n", "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop");
+    printf("  %s\n", "--------------------------------------------------------------------------------");
+    for (ResultNode *cur = head; cur; cur = cur->next)
+        printf("  %-25s %-12s %-10d %-25s %d%%\n", cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct);
+}
+
+void freeResultList(ResultNode **head)
+{
+    ResultNode *cur = *head;
+    while (cur)
+    {
+        ResultNode *tmp = cur;
+        cur = cur->next;
+        free(tmp);
+    }
+    *head = NULL;
+}
