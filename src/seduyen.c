@@ -131,35 +131,92 @@ void loadResultFromFile(ResultNode **head, const char *filename)
 
 
 /* ================= INPUT ================= */
-
 /* Xoa bo dem ban phim */
 void flushStdin(void)
 {
     int c;
-
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-/* Nhap ID */
+/* Nhap ID an toan */
 int inputId(const char *prompt)
 {
-    int id;
+    char line[64];
+    long value;
+    char *endptr;
 
-    printf("%s", prompt);
-    scanf("%d", &id);
-    flushStdin();
+    while (1)
+    {
+        printf("%s", prompt);
+        if (fgets(line, sizeof(line), stdin) == NULL)
+        {
+            return 0;
+        }
 
-    return id;
+        if (line[0] == '\n')
+        {
+            printf("[Loi] Lua chon khong hop le!\n");
+            continue;
+        }
+
+        value = strtol(line, &endptr, 10);
+
+        if (endptr == line || (*endptr != '\n' && *endptr != '\0'))
+        {
+            printf("[Loi] Lua chon khong hop le!\n");
+            continue;
+        }
+
+        if (value <= 0)
+        {
+            printf("[Loi] Lua chon khong hop le!\n");
+            continue;
+        }
+
+        return (int)value;
+    }
 }
 
-/* Nhap chuoi */
+/* Nhap chuoi an toan */
 void inputStr(const char *prompt, char *buf, int maxLen)
 {
     printf("%s", prompt);
-    fgets(buf, maxLen, stdin);
 
-    buf[strcspn(buf, "\n")] = '\0';
+    while (1)
+    {
+        if (fgets(buf, maxLen, stdin) == NULL)
+        {
+            buf[0] = '\0';
+            return;
+        }
+
+        if (buf[0] == '\n')
+            continue;
+
+        buf[strcspn(buf, "\n")] = '\0';
+        return;
+    }
 }
+
+/* Kiem tra ngay hop le DD/MM/YYYY */
+int isValidDate(const char *date)
+{
+    if (strlen(date) != 10)
+        return 0;
+
+    if (date[2] != '/' || date[5] != '/')
+        return 0;
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (i != 2 && i != 5 && !isdigit((unsigned char)date[i]))
+            return 0;
+    }
+
+    return 1;
+}
+
+// ...existing code...
 
 /* Kiem tra ngay hop le DD/MM/YYYY */
 int isValidDate(const char *date)
