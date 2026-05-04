@@ -16,6 +16,7 @@ int main(void) {
 
     /* Tai them nguoi dung tu data.txt (bo qua ID trung voi people.txt) */
     int before = listLength(head);
+
     loadFromFile(&head, DATA_FILE);
     int added = listLength(head) - before;
     if (added > 0)
@@ -52,11 +53,11 @@ int main(void) {
 
     /* Luu du lieu khi thoat */
     saveToFile(head, DATA_FILE);
-    saveToFile(head, PEOPLE_FILE);
     saveResultToFile(resultHead, RESULT_FILE);
     freeList(&head);
     freeResultList(&resultHead);
 
     printf("\nTam biet! Hen gap lai\nMong ban se tim duoc doi tuong phu hop cho minh\n");
+    printf("\n--- SE DUYEN 4.0 ---\n");
     return 0;
 }
