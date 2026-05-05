@@ -123,7 +123,7 @@ int maxId(Node *head)
 }
 
 
-esultNode* createResultNode(const char *name, const char *birth, 
+ResultNode* createResultNode(const char *name, const char *birth, 
 
                              int soChudao, 
 
