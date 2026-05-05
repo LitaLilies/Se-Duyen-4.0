@@ -123,27 +123,66 @@ int maxId(Node *head)
 }
 
 
-ResultNode* createResultNode(const char *name, const char *birth,
-                             int soChudao,
-                             const char *topName, int topPct) {
+esultNode* createResultNode(const char *name, const char *birth, 
 
-    if (!name || !birth || !topName) return NULL;
+                             int soChudao, 
 
-    ResultNode *p = malloc(sizeof(ResultNode));
-    if (!p) return NULL;
+                             const char *topName, int topPct) { 
 
-    strncpy(p->name, name, MAX_NAME - 1);
-    p->name[MAX_NAME - 1] = '\0';
+    ResultNode *p = (ResultNode*)malloc(sizeof(ResultNode)); 
 
-    strncpy(p->birth, birth, 10);
-    p->birth[10] = '\0';
+    if (!p) return NULL; 
 
-    strncpy(p->topName, topName, MAX_NAME - 1);
-    p->topName[MAX_NAME - 1] = '\0';
+    strncpy(p->name,    name,    MAX_NAME - 1); p->name[MAX_NAME-1]    = '\0'; 
 
-    p->soChudao = soChudao;
-    p->topPct   = topPct;
-    p->next     = NULL;
+    strncpy(p->birth,   birth,   10);           p->birth[10]           = '\0'; 
 
-    return p;
-}
+    strncpy(p->topName, topName, MAX_NAME - 1); p->topName[MAX_NAME-1] = '\0'; 
+
+    p->soChudao = soChudao; 
+
+    p->topPct   = topPct; 
+
+    p->next     = NULL; 
+
+    return p; 
+
+} 
+
+ 
+
+void addLastResult(ResultNode **head, ResultNode *p) { 
+
+    if (!*head) { *head = p; return; } 
+
+    ResultNode *cur = *head; 
+
+    while (cur->next) cur = cur->next; 
+
+    cur->next = p; 
+
+} 
+
+ 
+
+void traverseResultList(ResultNode *head) { 
+
+    if (!head) { printf("  (Chua co ket qua nao)\n"); return; } 
+
+    printf("  %-25s %-12s %-10s %-25s %-8s\n", 
+
+           "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop"); 
+
+    printf("  %s\n", 
+
+           "--------------------------------------------------------------------------------"); 
+
+    for (ResultNode *cur = head; cur; cur = cur->next) 
+
+        printf("  %-25s %-12s %-10d %-25s %d%%\n", 
+
+               cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct); 
+
+} 
+
+ 
