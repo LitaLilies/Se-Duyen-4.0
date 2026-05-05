@@ -149,8 +149,6 @@ ResultNode* createResultNode(const char *name, const char *birth,
 
 } 
 
- 
-
 void addLastResult(ResultNode **head, ResultNode *p) { 
 
     if (!*head) { *head = p; return; } 
@@ -162,8 +160,6 @@ void addLastResult(ResultNode **head, ResultNode *p) {
     cur->next = p; 
 
 } 
-
- 
 
 void traverseResultList(ResultNode *head) { 
 
@@ -185,4 +181,20 @@ void traverseResultList(ResultNode *head) {
 
 } 
 
- 
+void freeResultList(ResultNode **head) { 
+
+    ResultNode *cur = *head; 
+
+    while (cur) { 
+
+        ResultNode *tmp = cur; 
+
+        cur = cur->next; 
+
+        free(tmp); 
+
+    } 
+
+    *head = NULL; 
+
+}
