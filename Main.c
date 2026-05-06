@@ -53,6 +53,7 @@ int main(void) {
 
     /* Luu du lieu khi thoat */
     saveToFile(head, DATA_FILE);
+    saveToFile(head, PEOPLE_FILE);
     saveResultToFile(resultHead, RESULT_FILE);
     freeList(&head);
     freeResultList(&resultHead);
