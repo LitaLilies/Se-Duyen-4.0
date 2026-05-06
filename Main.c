@@ -7,6 +7,8 @@
 #include "include/seduyen.h"
 
 int main(void) {
+    printf("\n--- SE DUYEN 4.0 ---\n");
+    
     Node *head = NULL;
     ResultNode *resultHead = NULL;
 
@@ -53,7 +55,9 @@ int main(void) {
 
     /* Luu du lieu khi thoat */
     saveToFile(head, DATA_FILE);
-    saveToFile(head, PEOPLE_FILE);
+    //Luu lai danh sach nguoi moi them vào data.txt
+    saveToFile(getNodeAt(head, before), DATA_FILE);
+
     saveResultToFile(resultHead, RESULT_FILE);
     freeList(&head);
     freeResultList(&resultHead);
