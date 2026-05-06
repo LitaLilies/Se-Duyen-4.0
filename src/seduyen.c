@@ -216,26 +216,6 @@ int isValidDate(const char *date)
     return 1;
 }
 
-// ...existing code...
-
-/* Kiem tra ngay hop le DD/MM/YYYY */
-int isValidDate(const char *date)
-{
-    if (strlen(date) != 10)
-        return 0;
-
-    if (date[2] != '/' || date[5] != '/')
-        return 0;
-
-    for (int i = 0; i < 10; i++)
-    {
-        if (i != 2 && i != 5 && !isdigit(date[i]))
-            return 0;
-    }
-
-    return 1;
-}
-
 /* ================= DATA XU LY ================= */
 
 /* Danh lai ID tu 1 -> n */
