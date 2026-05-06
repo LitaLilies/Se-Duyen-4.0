@@ -57,7 +57,7 @@ void loadFromFile(Node **head, const char *filename)
             addLast(head, p);
     }
     fclose(f);
-    printf("Da tai du lieu tu file!\n");
+    // printf("Da tai du lieu tu file!\n");
 }
 
 // ...existing code...
@@ -85,7 +85,7 @@ void saveResultToFile(ResultNode *head, const char *filename)
         cur = cur->next;
     }
     fclose(f);
-    printf("Da luu ket qua!\n");
+    // printf("Da luu ket qua!\n");
 }
 /* loadResultFromFile
    Doc danh sach ket qua tu file
