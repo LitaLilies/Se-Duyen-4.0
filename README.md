@@ -24,4 +24,11 @@
    - Tự động tải dữ liệu từ `data.txt` và `people.txt` khi khởi động
    - Tự động lưu toàn bộ dữ liệu và kết quả vào file khi thoát
    - Chia chương trình thành nhiều module (`list.c`, `seduyen.c`, `Main.c`)
+
+5. **Hướng dẫn biên dịch và chạy:**
+   ```bash
+   gcc Main.c src/seduyen.c src/list.c -Iinclude -o seduyen.exe
+   .\seduyen.exe
+   ```
+
    
