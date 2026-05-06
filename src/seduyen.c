@@ -126,7 +126,7 @@ void loadResultFromFile(ResultNode **head, const char *filename)
     }
 
     fclose(f);
-    printf("Da tai ket qua tu file!\n");
+    // printf("Da tai ket qua tu file!\n");
 }
 
 
@@ -463,14 +463,24 @@ void handleAdd(Node **head)
     char name[MAX_NAME], birth[11]; 
     inputStr("  Ho ten: ", name, MAX_NAME); 
 
-    if (strlen(name) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; } 
+    if (strlen(name) == 0) 
+    { 
+        printf("  [Loi] Ten khong duoc trong!\n"); 
+        return; 
+    } 
  
     while (1) 
     { 
         inputStr("  Ngay sinh (DD/MM/YYYY, Enter de huy): ", birth, 11); 
-        if (strlen(birth) == 0) { printf("  Da huy them nguoi dung.\n"); return; } 
-        if (isValidDate(birth)) break; 
-
+        if (strlen(birth) == 0)
+        {
+            printf("  Da huy them nguoi dung.\n"); 
+            return;
+        } 
+        if (isValidDate(birth))
+        {
+            break; 
+        }
         printf("  [Loi] Dinh dang ngay khong hop le (VD: 01/01/2000)!\n"); 
 
     } 
