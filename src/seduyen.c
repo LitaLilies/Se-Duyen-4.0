@@ -190,10 +190,24 @@ void inputStr(const char *prompt, char *buf, int maxLen)
             return;
         }
 
+        // Neu chi co newline thi user dang nhap chuoi rong
         if (buf[0] == '\n')
             continue;
 
-        buf[strcspn(buf, "\n")] = '\0';
+        // Tim va xoa newline
+        size_t len = strcspn(buf, "\n");
+        
+        // Neu khong tim thay newline, co nghia input qua dai
+        if (len == maxLen - 1)
+        {
+            // Xoa bo cac ky tu con lai trong stdin
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("  [Loi] Chuan nhat toi %d ky tu!\n", maxLen - 1);
+            continue;
+        }
+        
+        buf[len] = '\0';
         return;
     }
 }
