@@ -4,3 +4,9 @@
 4|Nguyen Quoc Dat|23/12/2007
 5|Le Dinh Son|04/05/2007
 6|Hoang Thi My Trang|05/09/2007
+7|Pham Thanh Truc|03/08/2007
+8|Le Thi Ngoc Tuyet|01/03/2007
+9|Tran Nhat Tien|25/07/2007
+10|Nguyen Ngoc Phuong Lam|09/10/2007
+11|Pham Dan Truong|11/02/2007
+12|Doan Xuan Tin|01/11/2007

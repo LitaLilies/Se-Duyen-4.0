@@ -57,7 +57,7 @@ void loadFromFile(Node **head, const char *filename)
             addLast(head, p);
     }
     fclose(f);
-    printf("Da tai du lieu tu file!\n");
+    // printf("Da tai du lieu tu file!\n");
 }
 
 // ...existing code...
@@ -85,7 +85,7 @@ void saveResultToFile(ResultNode *head, const char *filename)
         cur = cur->next;
     }
     fclose(f);
-    printf("Da luu ket qua!\n");
+    // printf("Da luu ket qua!\n");
 }
 /* loadResultFromFile
    Doc danh sach ket qua tu file
@@ -126,39 +126,90 @@ void loadResultFromFile(ResultNode **head, const char *filename)
     }
 
     fclose(f);
-    printf("Da tai ket qua tu file!\n");
+    // printf("Da tai ket qua tu file!\n");
 }
 
 
 /* ================= INPUT ================= */
-
 /* Xoa bo dem ban phim */
 void flushStdin(void)
 {
     int c;
-
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-/* Nhap ID */
+/* Nhap ID an toan */
 int inputId(const char *prompt)
 {
-    int id;
+    char line[64];
+    long value;
+    char *endptr;
 
-    printf("%s", prompt);
-    scanf("%d", &id);
-    flushStdin();
+    while (1)
+    {
+        printf("%s", prompt);
+        if (fgets(line, sizeof(line), stdin) == NULL)
+        {
+            return 0;
+        }
 
-    return id;
+        if (line[0] == '\n')
+        {
+            printf("[Loi] Lua chon khong hop le!\n");
+            continue;
+        }
+
+        value = strtol(line, &endptr, 10);
+
+        if (endptr == line || (*endptr != '\n' && *endptr != '\0'))
+        {
+            printf("[Loi] Lua chon khong hop le!\n");
+            continue;
+        }
+
+        if (value <= 0)
+        {
+            printf("[Loi] Lua chon khong hop le!\n");
+            continue;
+        }
+
+        return (int)value;
+    }
 }
 
-/* Nhap chuoi */
+/* Nhap chuoi an toan */
 void inputStr(const char *prompt, char *buf, int maxLen)
 {
     printf("%s", prompt);
-    fgets(buf, maxLen, stdin);
 
-    buf[strcspn(buf, "\n")] = '\0';
+    while (1)
+    {
+        if (fgets(buf, maxLen, stdin) == NULL)
+        {
+            buf[0] = '\0';
+            return;
+        }
+
+        // Neu chi co newline thi user dang nhap chuoi rong
+        if (buf[0] == '\n')
+            continue;
+
+        // Tim va xoa newline
+        size_t len = strcspn(buf, "\n");
+        
+        // Neu khong tim thay newline, co nghia input qua dai
+        if (len == maxLen - 1)
+        {
+            // Xoa bo cac ky tu con lai trong stdin
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("  [Loi] Chuan nhat toi %d ky tu!\n", maxLen - 1);
+            continue;
+        }
+        
+        buf[len] = '\0';
+        return;
+    }
 }
 
 /* Kiem tra ngay hop le DD/MM/YYYY */
@@ -172,7 +223,7 @@ int isValidDate(const char *date)
 
     for (int i = 0; i < 10; i++)
     {
-        if (i != 2 && i != 5 && !isdigit(date[i]))
+        if (i != 2 && i != 5 && !isdigit((unsigned char)date[i]))
             return 0;
     }
 
@@ -426,14 +477,24 @@ void handleAdd(Node **head)
     char name[MAX_NAME], birth[11]; 
     inputStr("  Ho ten: ", name, MAX_NAME); 
 
-    if (strlen(name) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; } 
+    if (strlen(name) == 0) 
+    { 
+        printf("  [Loi] Ten khong duoc trong!\n"); 
+        return; 
+    } 
  
     while (1) 
     { 
         inputStr("  Ngay sinh (DD/MM/YYYY, Enter de huy): ", birth, 11); 
-        if (strlen(birth) == 0) { printf("  Da huy them nguoi dung.\n"); return; } 
-        if (isValidDate(birth)) break; 
-
+        if (strlen(birth) == 0)
+        {
+            printf("  Da huy them nguoi dung.\n"); 
+            return;
+        } 
+        if (isValidDate(birth))
+        {
+            break; 
+        }
         printf("  [Loi] Dinh dang ngay khong hop le (VD: 01/01/2000)!\n"); 
 
     } 
