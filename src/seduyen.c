@@ -178,40 +178,28 @@ int inputId(const char *prompt)
 }
 
 /* Nhap chuoi an toan */
-void inputStr(const char *prompt, char *buf, int maxLen)
-{
-    printf("%s", prompt);
+void inputStr(const char *prompt, char *buf, int maxLen) { 
 
-    while (1)
-    {
-        if (fgets(buf, maxLen, stdin) == NULL)
-        {
-            buf[0] = '\0';
-            return;
-        }
+    printf("%s", prompt); 
+    if (fgets(buf, maxLen, stdin)) { 
 
-        // Neu chi co newline thi user dang nhap chuoi rong
-        if (buf[0] == '\n')
-            continue;
+        /* Neu chua doc het dong (khong co '\n'), xa phan con lai */ 
 
-        // Tim va xoa newline
-        size_t len = strcspn(buf, "\n");
-        
-        // Neu khong tim thay newline, co nghia input qua dai
-        if (len == maxLen - 1)
-        {
-            // Xoa bo cac ky tu con lai trong stdin
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-            printf("  [Loi] Chuan nhat toi %d ky tu!\n", maxLen - 1);
-            continue;
-        }
-        
-        buf[len] = '\0';
-        return;
-    }
+        if (buf[strlen(buf) - 1] != '\n') flushStdin(); 
+
+        buf[strcspn(buf, "\n")] = '\0'; 
+
+        /* Cat khoang trang dau */ 
+
+        int start = 0; 
+
+        while (buf[start] == ' ') start++; 
+
+        if (start) memmove(buf, buf + start, strlen(buf) - start + 1); 
+
+    } 
+
 }
-// up date
 /* Kiem tra ngay hop le DD/MM/YYYY */
 int isValidDate(const char *date)
 {
