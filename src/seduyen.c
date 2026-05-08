@@ -211,7 +211,7 @@ void inputStr(const char *prompt, char *buf, int maxLen)
         return;
     }
 }
-
+// up date
 /* Kiem tra ngay hop le DD/MM/YYYY */
 int isValidDate(const char *date)
 {
