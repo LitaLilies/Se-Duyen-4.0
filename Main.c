@@ -53,6 +53,7 @@ int main(void) {
 
     /* Luu du lieu khi thoat */
     saveToFile(head, DATA_FILE);
+    saveToFile(head, PEOPLE_FILE);
     //Luu lai danh sach nguoi moi them vào data.txt
     saveToFile(getNodeAt(head, before), DATA_FILE);
 
