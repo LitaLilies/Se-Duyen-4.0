@@ -123,19 +123,15 @@ int maxId(Node *head)
 }
 
 
-ResultNode* createResultNode(const char *name, const char *birth, 
-
-                             int soChudao, 
-
-                             const char *topName, int topPct) { 
-
+ResultNode* createResultNode(const char *name, const char *birth, int soChudao,const char *topName, int topPct) 
+{ 
     ResultNode *p = (ResultNode*)malloc(sizeof(ResultNode)); 
 
     if (!p) return NULL; 
 
-    strncpy(p->name,    name,    MAX_NAME - 1); p->name[MAX_NAME-1]    = '\0'; 
+    strncpy(p->name, name, MAX_NAME - 1); p->name[MAX_NAME-1] = '\0'; 
 
-    strncpy(p->birth,   birth,   10);           p->birth[10]           = '\0'; 
+    strncpy(p->birth, birth, 10); p->birth[10] = '\0'; 
 
     strncpy(p->topName, topName, MAX_NAME - 1); p->topName[MAX_NAME-1] = '\0'; 
 
@@ -143,7 +139,7 @@ ResultNode* createResultNode(const char *name, const char *birth,
 
     p->topPct   = topPct; 
 
-    p->next     = NULL; 
+    p->next = NULL; 
 
     return p; 
 
@@ -165,19 +161,13 @@ void traverseResultList(ResultNode *head) {
 
     if (!head) { printf("  (Chua co ket qua nao)\n"); return; } 
 
-    printf("  %-25s %-12s %-10s %-25s %-8s\n", 
+    printf("  %-25s %-12s %-10s %-25s %-8s\n", "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop"); 
 
-           "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop"); 
-
-    printf("  %s\n", 
-
-           "--------------------------------------------------------------------------------"); 
+    printf("  %s\n", "--------------------------------------------------------------------------------"); 
 
     for (ResultNode *cur = head; cur; cur = cur->next) 
 
-        printf("  %-25s %-12s %-10d %-25s %d%%\n", 
-
-               cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct); 
+        printf("  %-25s %-12s %-10d %-25s %d%%\n", cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct); 
 
 } 
 
