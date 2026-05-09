@@ -1,6 +1,4 @@
 #include <stdio.h>
-
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "include/list.h"
@@ -15,14 +13,6 @@ int main(void) {
     /* Tai danh sach co san tu people.txt */
     loadFromFile(&head, PEOPLE_FILE);
     printf("  Da tai %d nguoi tu danh sach co san tu people.txt! \n", listLength(head));
-
-    /* Tai them nguoi dung tu data.txt (bo qua ID trung voi people.txt) */
-    int before = listLength(head);
-
-    loadFromFile(&head, DATA_FILE);
-    int added = listLength(head) - before;
-    if (added > 0)
-        printf("  Da tai them %d nguoi tu data.txt.\n", added);
 
     /* Tai danh sach ket qua tu file */
     loadResultFromFile(&resultHead, RESULT_FILE);
@@ -53,10 +43,8 @@ int main(void) {
         }
     } while (choice != 0);
 
-    /* Luu du lieu khi thoat */
-    saveToFile(head, DATA_FILE);
-    //Luu lai danh sach nguoi moi them vào data.txt
-    saveToFile(getNodeAt(head, before), DATA_FILE);
+    /* Luu toan bo danh sach vao people.txt */
+    saveToFile(head, PEOPLE_FILE);
 
     saveResultToFile(resultHead, RESULT_FILE);
     freeList(&head);

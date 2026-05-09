@@ -3,7 +3,6 @@
 
 #include "list.h"
 
-#define DATA_FILE    "data/data.txt"
 #define RESULT_FILE  "data/results.txt"
 #define PEOPLE_FILE  "data/people.txt"
 

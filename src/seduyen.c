@@ -178,40 +178,25 @@ int inputId(const char *prompt)
 }
 
 /* Nhap chuoi an toan */
-void inputStr(const char *prompt, char *buf, int maxLen)
-{
-    printf("%s", prompt);
+void inputStr(const char *prompt, char *buf, int maxLen) { 
+    printf("%s", prompt); 
+    if (fgets(buf, maxLen, stdin)) { 
+        /* Neu chua doc het dong (khong co '\n'), xa phan con lai */ 
+        if (buf[strlen(buf) - 1] != '\n') flushStdin(); 
 
-    while (1)
-    {
-        if (fgets(buf, maxLen, stdin) == NULL)
-        {
-            buf[0] = '\0';
-            return;
-        }
+        buf[strcspn(buf, "\n")] = '\0'; 
 
-        // Neu chi co newline thi user dang nhap chuoi rong
-        if (buf[0] == '\n')
-            continue;
+        /* Cat khoang trang dau */ 
 
-        // Tim va xoa newline
-        size_t len = strcspn(buf, "\n");
-        
-        // Neu khong tim thay newline, co nghia input qua dai
-        if (len == maxLen - 1)
-        {
-            // Xoa bo cac ky tu con lai trong stdin
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-            printf("  [Loi] Chuan nhat toi %d ky tu!\n", maxLen - 1);
-            continue;
-        }
-        
-        buf[len] = '\0';
-        return;
-    }
+        int start = 0; 
+
+        while (buf[start] == ' ') start++; 
+
+        if (start) memmove(buf, buf + start, strlen(buf) - start + 1); 
+
+    } 
+
 }
-
 /* Kiem tra ngay hop le DD/MM/YYYY */
 int isValidDate(const char *date)
 {
@@ -275,18 +260,20 @@ int lifePathNumber(const char *birth)
 } 
 
 //Bang tuong hop giua cac so
-static const int COMPAT[9][9] = { 
-/*       1    2    3    4    5    6    7    8    9  */ 
-/* 1 */ {80,  60,  70,  50,  75,  65,  55,  70,  60}, 
-/* 2 */ {60,  80,  65,  70,  60,  75,  65,  55,  70}, 
-/* 3 */ {70,  65,  80,  55,  75,  70,  60,  65,  60}, 
-/* 4 */ {50,  70,  55,  80,  55,  75,  65,  70,  65}, 
-/* 5 */ {75,  60,  75,  55,  80,  60,  70,  65,  70}, 
-/* 6 */ {65,  75,  70,  75,  60,  80,  60,  65,  75}, 
-/* 7 */ {55,  65,  60,  65,  70,  60,  80,  55,  70}, 
-/* 8 */ {70,  55,  65,  70,  65,  65,  55,  80,  60}, 
-/* 9 */ {60,  70,  60,  65,  70,  75,  70,  60,  80}, 
-}; 
+static const int COMPAT[9][9] = {
+/*        1    2    3    4    5    6    7    8    9 */
+
+/* 1 */ { 88,  72,  84,  48,  93,  66,  52,  78,  69 },
+/* 2 */ { 72,  86,  76,  82,  64,  91,  71,  57,  80 },
+/* 3 */ { 84,  76,  87,  58,  89,  74,  63,  71,  83 },
+/* 4 */ { 48,  82,  58,  85,  55,  88,  77,  84,  68 },
+/* 5 */ { 93,  64,  89,  55,  86,  72,  81,  76,  90 },
+/* 6 */ { 66,  91,  74,  88,  72,  87,  67,  73,  92 },
+/* 7 */ { 52,  71,  63,  77,  81,  67,  84,  59,  78 },
+/* 8 */ { 78,  57,  71,  84,  76,  73,  59,  86,  74 },
+/* 9 */ { 69,  80,  83,  68,  90,  92,  78,  74,  88 }
+
+};
 
 //ham kiem tra muc do hop nhau
 int compatibility(int n1, int n2)//nhan so chu dao cua 2 nguoi
@@ -453,7 +440,7 @@ void printMenu(void) {
     printf("\n============ SE DUYEN 4.0 ============\n"); 
     printf("  1. Hien thi danh sach\n"); 
     printf("  2. Them nguoi dung\n"); 
-    printf("  3. Tim kiem theo ID\n"); 
+    printf("  3. Tim kiem theo ten/ ho\n"); 
     printf("  4. Cap nhat thong tin\n"); 
     printf("  5. Xoa nguoi dung\n"); 
     printf("  6. So chu dao & Top 3 tuong hop\n"); 
@@ -552,11 +539,37 @@ void handleUpdate(Node **head) {
     printf("  Cap nhat thanh cong!\n");
 }
 
+/* Chuyen chuoi sang chu thuong, luu vao buf */
+static void toLowerStr(const char *src, char *buf, int maxLen)
+{
+    int i;
+    for (i = 0; i < maxLen - 1 && src[i]; i++)
+        buf[i] = (char)tolower((unsigned char)src[i]);
+    buf[i] = '\0';
+}
+
 void handleSearch(Node *head) {
-    printf("\n--- TIM KIEM ---\n");
-    int id = inputId("  Nhap ID can tim: ");
-    Node *p = searchNode(head, id);
-    if (!p) { printf("  Khong tim thay ID %d.\n", id); return; }
+    printf("\n--- TIM KIEM THEO TEN/ HO---\n");
+    char keyword[MAX_NAME];
+    inputStr("  Nhap ten/ ho can tim: ", keyword, MAX_NAME);
+    if (strlen(keyword) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; }
+
+    /* Chuyen keyword ve chu thuong de so sanh */
+    char kwLower[MAX_NAME];
+    toLowerStr(keyword, kwLower, MAX_NAME);
+
+    int found = 0;
     printf("  %-5s %-25s %-12s\n", "ID", "Ho ten", "Ngay sinh");
-    printf("  %-5d %-25s %-12s\n", p->id, p->name, p->birth);
+    printf("  %-5s %-25s %-12s\n", "-----", "-------------------------", "----------");
+    for (Node *cur = head; cur; cur = cur->next)
+    {
+        char nameLower[MAX_NAME];
+        toLowerStr(cur->name, nameLower, MAX_NAME);
+        if (strstr(nameLower, kwLower) != NULL)
+        {
+            printf("  %-5d %-25s %-12s\n", cur->id, cur->name, cur->birth);
+            found++;
+        }
+    }
+    if (!found) printf("  Khong tim thay ai ten chua '%s'.\n", keyword);
 }

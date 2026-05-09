@@ -23,7 +23,7 @@ void addLast(Node **head, Node *p)
     {
         *head = p;
         return;
-    }
+}
     Node *cur = *head;
     while (cur->next)
         cur = cur->next;
@@ -227,5 +227,21 @@ void freeResultList(ResultNode **head)
         free(tmp);
     }
 
+<<<<<<< HEAD
     *head = NULL;
+=======
+    ResultNode *cur = *head; 
+
+    while (cur) { 
+
+        ResultNode *tmp = cur; 
+
+        cur = cur->next; 
+
+        free(tmp); 
+} 
+
+    *head = NULL; 
+
+>>>>>>> fab11ba7ea9b840bca0c59b99a0765b328ab68cd
 }
