@@ -17,7 +17,7 @@ int main(void) {
     /* Tai them nguoi dung tu data.txt (bo qua ID trung voi people.txt) */
     int before = listLength(head);
 
-    loadFromFile(&head, DATA_FILE);
+    loadFromFile(&head, DATA_FILE);     
     int added = listLength(head) - before;
     if (added > 0)
         printf("  Da tai them %d nguoi tu data.txt.\n", added);
