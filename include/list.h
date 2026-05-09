@@ -31,11 +31,11 @@ int maxId(Node *head);
  */
 typedef struct ResultNode
 {
-    char name[MAX_NAME];    /* ten nguoi duoc xet      */
-    char birth[11];         /* ngay sinh                */
-    int soChudao;           /* so chu dao               */
-    char topName[MAX_NAME]; /* nguoi hop nhat           */
-    int topPct;             /* % tuong hop              */
+    char name[MAX_NAME];    /* ten nguoi duoc xet */
+    char birth[11];         /* ngay sinh*/
+    int soChudao;           /* so chu dao*/
+    char topName[MAX_NAME]; /* nguoi hop nhat*/
+    int topPct;             /* % tuong hop*/
     struct ResultNode *next;
 } ResultNode;
 
