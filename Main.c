@@ -51,11 +51,19 @@ int main(void) {
         }
     } while (choice != 0);
 
-    /* Luu du lieu khi thoat */
-    saveToFile(head, DATA_FILE);
-    saveToFile(head, PEOPLE_FILE);
-    //Luu lai danh sach nguoi moi them vào data.txt
-    saveToFile(getNodeAt(head, before), DATA_FILE);
+    /* Luu du lieu khi thoat:
+     * - people.txt: chi luu nguoi goc (xoa/sua duoc phan anh, them thi khong)
+     * - data.txt  : chi luu nguoi moi them trong phien nay
+     */
+    Node *lastOriginal = (before > 0) ? getNodeAt(head, before - 1) : NULL;
+    Node *newHead      = (lastOriginal != NULL) ? lastOriginal->next : head;
+
+    if (lastOriginal != NULL) lastOriginal->next = NULL; /* tam cat */
+
+    saveToFile(head,    PEOPLE_FILE); /* chi nguoi goc */
+    saveToFile(newHead, DATA_FILE);   /* chi nguoi moi */
+
+    if (lastOriginal != NULL) lastOriginal->next = newHead; /* noi lai */
 
     saveResultToFile(resultHead, RESULT_FILE);
     freeList(&head);
