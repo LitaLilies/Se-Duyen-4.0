@@ -9,6 +9,7 @@ Node *createNode(int id, const char *name, const char *birth)
     if (!p)
         return NULL;
     p->id = id;
+
     strncpy(p->name, name, MAX_NAME - 1);
     p->name[MAX_NAME - 1] = '\0';
     strncpy(p->birth, birth, 10);
