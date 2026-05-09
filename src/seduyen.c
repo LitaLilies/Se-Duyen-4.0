@@ -440,7 +440,7 @@ void printMenu(void) {
     printf("\n============ SE DUYEN 4.0 ============\n"); 
     printf("  1. Hien thi danh sach\n"); 
     printf("  2. Them nguoi dung\n"); 
-    printf("  3. Tim kiem theo ID\n"); 
+    printf("  3. Tim kiem theo ten\n"); 
     printf("  4. Cap nhat thong tin\n"); 
     printf("  5. Xoa nguoi dung\n"); 
     printf("  6. So chu dao & Top 3 tuong hop\n"); 
@@ -540,10 +540,22 @@ void handleUpdate(Node **head) {
 }
 
 void handleSearch(Node *head) {
-    printf("\n--- TIM KIEM ---\n");
-    int id = inputId("  Nhap ID can tim: ");
-    Node *p = searchNode(head, id);
-    if (!p) { printf("  Khong tim thay ID %d.\n", id); return; }
+    printf("\n--- TIM KIEM THEO TEN ---\n");
+    char keyword[MAX_NAME];
+    inputStr("  Nhap ten can tim: ", keyword, MAX_NAME);
+    if (strlen(keyword) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; }
+
+    int found = 0;
     printf("  %-5s %-25s %-12s\n", "ID", "Ho ten", "Ngay sinh");
-    printf("  %-5d %-25s %-12s\n", p->id, p->name, p->birth);
+    printf("  %-5s %-25s %-12s\n", "-----", "-------------------------", "----------");
+    for (Node *cur = head; cur; cur = cur->next)
+    {
+        /* Tim tat ca ban ghi co ten chua keyword (khong phan biet hoa thuong) */
+        if (strstr(cur->name, keyword) != NULL)
+        {
+            printf("  %-5d %-25s %-12s\n", cur->id, cur->name, cur->birth);
+            found++;
+        }
+    }
+    if (!found) printf("  Khong tim thay ai ten chua '%s'.\n", keyword);
 }
