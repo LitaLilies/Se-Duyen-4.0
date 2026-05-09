@@ -14,14 +14,6 @@ int main(void) {
     loadFromFile(&head, PEOPLE_FILE);
     printf("  Da tai %d nguoi tu danh sach co san tu people.txt! \n", listLength(head));
 
-    /* Tai them nguoi dung tu data.txt (bo qua ID trung voi people.txt) */
-    int before = listLength(head);
-
-    loadFromFile(&head, DATA_FILE);     
-    int added = listLength(head) - before;
-    if (added > 0)
-        printf("  Da tai them %d nguoi tu data.txt.\n", added);
-
     /* Tai danh sach ket qua tu file */
     loadResultFromFile(&resultHead, RESULT_FILE);
 
@@ -51,19 +43,8 @@ int main(void) {
         }
     } while (choice != 0);
 
-    /* Luu du lieu khi thoat:
-     * - people.txt: chi luu nguoi goc (xoa/sua duoc phan anh, them thi khong)
-     * - data.txt  : chi luu nguoi moi them trong phien nay
-     */
-    Node *lastOriginal = (before > 0) ? getNodeAt(head, before - 1) : NULL;
-    Node *newHead      = (lastOriginal != NULL) ? lastOriginal->next : head;
-
-    if (lastOriginal != NULL) lastOriginal->next = NULL; /* tam cat */
-
-    saveToFile(head,    PEOPLE_FILE); /* chi nguoi goc */
-    saveToFile(newHead, DATA_FILE);   /* chi nguoi moi */
-
-    if (lastOriginal != NULL) lastOriginal->next = newHead; /* noi lai */
+    /* Luu toan bo danh sach vao people.txt */
+    saveToFile(head, PEOPLE_FILE);
 
     saveResultToFile(resultHead, RESULT_FILE);
     freeList(&head);
