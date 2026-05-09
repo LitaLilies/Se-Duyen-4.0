@@ -23,7 +23,7 @@ void addLast(Node **head, Node *p)
     {
         *head = p;
         return;
-}
+    }
     Node *cur = *head;
     while (cur->next)
         cur = cur->next;
@@ -122,12 +122,6 @@ int maxId(Node *head)
     return max;
 }
 
-/* ─── ResultNode ─────────────────────────────────────────────── */
-/*
- * Giai thich: cac ham nay giong het Node phia tren,
- * chi khac la chung lam viec voi struct ResultNode.
- * Day la kieu "linked list thu 2" de luu ket qua rieng biet.
- */
 ResultNode *createResultNode(const char *name, const char *birth, int soChudao, const char *topName, int topPct)
 {
     ResultNode *p = (ResultNode *)malloc(sizeof(ResultNode));
@@ -145,51 +139,8 @@ ResultNode *createResultNode(const char *name, const char *birth, int soChudao, 
     return p;
 }
 
-<<<<<<< HEAD
-ResultNode *createResultNode(const char *name, const char *birth, int soChudao, const char *topName, int topPct)
-{
-
-    ResultNode *p = (ResultNode *)malloc(sizeof(ResultNode));
-
-    if (!p)
-        return NULL;
-
-    strncpy(p->name, name, MAX_NAME - 1);
-    p->name[MAX_NAME - 1] = '\0';
-=======
-ResultNode* createResultNode(const char *name, const char *birth, int soChudao,const char *topName, int topPct) 
-{ 
-    ResultNode *p = (ResultNode*)malloc(sizeof(ResultNode)); 
->>>>>>> 8795f4142df55b7b5981588f612b55fb53737e28
-
-    strncpy(p->birth, birth, 10);
-    p->birth[10] = '\0';
-
-<<<<<<< HEAD
-    strncpy(p->topName, topName, MAX_NAME - 1);
-    p->topName[MAX_NAME - 1] = '\0';
-
-    p->soChudao = soChudao;
-=======
-    strncpy(p->name, name, MAX_NAME - 1); p->name[MAX_NAME-1] = '\0'; 
-
-    strncpy(p->birth, birth, 10); p->birth[10] = '\0'; 
->>>>>>> 8795f4142df55b7b5981588f612b55fb53737e28
-
-    p->topPct = topPct;
-
-    p->next = NULL;
-
-    return p;
-}
-
-<<<<<<< HEAD
 void addLastResult(ResultNode **head, ResultNode *p)
 {
-=======
-    p->next = NULL; 
->>>>>>> 8795f4142df55b7b5981588f612b55fb53737e28
-
     if (!*head)
     {
         *head = p;
@@ -213,61 +164,26 @@ void traverseResultList(ResultNode *head)
         return;
     }
 
-    printf("  %-25s %-12s %-10s %-25s %-8s\n",
+    printf("  %-25s %-12s %-10s %-25s %-8s\n", "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop");
 
-           "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop");
-
-    printf("  %s\n",
-
-           "--------------------------------------------------------------------------------");
-
-<<<<<<< HEAD
+    printf("  %s\n", "--------------------------------------------------------------------------------");
     for (ResultNode *cur = head; cur; cur = cur->next)
 
-        printf("  %-25s %-12s %-10d %-25s %d%%\n",
-
-               cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct);
+        printf("  %-25s %-12s %-10d %-25s %d%%\n", cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct);
 }
 
 void freeResultList(ResultNode **head)
 {
-=======
-    printf("  %-25s %-12s %-10s %-25s %-8s\n", "Ho ten", "Ngay sinh", "SoChuDao", "Hop nhat voi", "% Hop"); 
-
-    printf("  %s\n", "--------------------------------------------------------------------------------"); 
->>>>>>> 8795f4142df55b7b5981588f612b55fb53737e28
-
     ResultNode *cur = *head;
-
-<<<<<<< HEAD
     while (cur)
     {
 
         ResultNode *tmp = cur;
-=======
-        printf("  %-25s %-12s %-10d %-25s %d%%\n", cur->name, cur->birth, cur->soChudao, cur->topName, cur->topPct); 
->>>>>>> 8795f4142df55b7b5981588f612b55fb53737e28
 
         cur = cur->next;
 
         free(tmp);
     }
 
-<<<<<<< HEAD
     *head = NULL;
-=======
-    ResultNode *cur = *head; 
-
-    while (cur) { 
-
-        ResultNode *tmp = cur; 
-
-        cur = cur->next; 
-
-        free(tmp); 
-} 
-
-    *head = NULL; 
-
->>>>>>> fab11ba7ea9b840bca0c59b99a0765b328ab68cd
 }
