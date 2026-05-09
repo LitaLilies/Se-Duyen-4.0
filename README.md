@@ -21,7 +21,7 @@
    - Quản lý người dùng: thêm, xóa, sửa, tìm kiếm, hiển thị danh sách
    - **Tính tương hợp:** ghép đôi dựa trên ngày sinh và lưu kết quả
    - Xem lại và dọn dẹp danh sách kết quả ghép đôi
-   - Tự động tải dữ liệu từ `data.txt` và `people.txt` khi khởi động
+   - Tự động tải dữ liệu từ `people.txt` khi khởi động
    - Tự động lưu toàn bộ dữ liệu và kết quả vào file khi thoát
    - Chia chương trình thành nhiều module (`list.c`, `seduyen.c`, `Main.c`)
 
