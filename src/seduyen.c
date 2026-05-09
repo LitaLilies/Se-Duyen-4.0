@@ -440,7 +440,7 @@ void printMenu(void) {
     printf("\n============ SE DUYEN 4.0 ============\n"); 
     printf("  1. Hien thi danh sach\n"); 
     printf("  2. Them nguoi dung\n"); 
-    printf("  3. Tim kiem theo ten\n"); 
+    printf("  3. Tim kiem theo ten/ ho\n"); 
     printf("  4. Cap nhat thong tin\n"); 
     printf("  5. Xoa nguoi dung\n"); 
     printf("  6. So chu dao & Top 3 tuong hop\n"); 
@@ -540,9 +540,9 @@ void handleUpdate(Node **head) {
 }
 
 void handleSearch(Node *head) {
-    printf("\n--- TIM KIEM THEO TEN ---\n");
+    printf("\n--- TIM KIEM THEO TEN/ HO---\n");
     char keyword[MAX_NAME];
-    inputStr("  Nhap ten can tim: ", keyword, MAX_NAME);
+    inputStr("  Nhap ten/ ho can tim: ", keyword, MAX_NAME);
     if (strlen(keyword) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; }
 
     int found = 0;
