@@ -539,19 +539,33 @@ void handleUpdate(Node **head) {
     printf("  Cap nhat thanh cong!\n");
 }
 
+/* Chuyen chuoi sang chu thuong, luu vao buf */
+static void toLowerStr(const char *src, char *buf, int maxLen)
+{
+    int i;
+    for (i = 0; i < maxLen - 1 && src[i]; i++)
+        buf[i] = (char)tolower((unsigned char)src[i]);
+    buf[i] = '\0';
+}
+
 void handleSearch(Node *head) {
     printf("\n--- TIM KIEM THEO TEN/ HO---\n");
     char keyword[MAX_NAME];
     inputStr("  Nhap ten/ ho can tim: ", keyword, MAX_NAME);
     if (strlen(keyword) == 0) { printf("  [Loi] Ten khong duoc trong!\n"); return; }
 
+    /* Chuyen keyword ve chu thuong de so sanh */
+    char kwLower[MAX_NAME];
+    toLowerStr(keyword, kwLower, MAX_NAME);
+
     int found = 0;
     printf("  %-5s %-25s %-12s\n", "ID", "Ho ten", "Ngay sinh");
     printf("  %-5s %-25s %-12s\n", "-----", "-------------------------", "----------");
     for (Node *cur = head; cur; cur = cur->next)
     {
-        /* Tim tat ca ban ghi co ten chua keyword (khong phan biet hoa thuong) */
-        if (strstr(cur->name, keyword) != NULL)
+        char nameLower[MAX_NAME];
+        toLowerStr(cur->name, nameLower, MAX_NAME);
+        if (strstr(nameLower, kwLower) != NULL)
         {
             printf("  %-5d %-25s %-12s\n", cur->id, cur->name, cur->birth);
             found++;
