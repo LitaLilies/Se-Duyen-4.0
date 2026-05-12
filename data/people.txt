@@ -17,7 +17,7 @@
 17|Tran Ninh Thuan|17/10/2007
 18|Phan The Hiep|29/01/2007
 19|Huynh Van Linh|12/04/2007
-20|Pham Ngoc Thang|
+20|Pham Ngoc Thang|09/01/2007
 21|Nguyen Nhat Vu|24/07/2007
 22|Nguyen Truong Vu|03/03/2007
 23|Tran Nhat Tien|25/07/2007
